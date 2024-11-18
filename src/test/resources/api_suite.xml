@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="api practical suite" verbose="1">
+    <listeners>
+        <listener class-name="listeners.AttachmentListener"/>
+    </listeners>
+
+    <test name="validate events odds">
+        <classes>
+            <class name="ApiTest"/>
+        </classes>
+    </test>
+</suite>

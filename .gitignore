@@ -1,9 +1,7 @@
 .classpath
 .class
 *log
-*.jar
 *target
-*.gradle
 *.idea
 .idea/
 TEST*.xml
@@ -16,7 +14,6 @@ Thumbs.db
 *.war
 *.iml
 *.ipr
-*.xml
 bin
 .project
 .settings
