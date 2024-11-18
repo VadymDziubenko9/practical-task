@@ -1,0 +1,32 @@
+.classpath
+.class
+*log
+*.jar
+*target
+*.gradle
+*.idea
+.idea/
+TEST*.xml
+*.DS_Store
+Thumbs.db
+
+*.pb
+*.app
+*.exe
+*.war
+*.iml
+*.ipr
+*.xml
+bin
+.project
+.settings
+out
+/out/
+
+# Allure reports
+build/*
+
+allure-results/*
+
+# Selenide folder
+selenideFolder/*
