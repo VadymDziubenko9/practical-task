@@ -1,9 +1,6 @@
 package listeners;
 
-import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
-import lombok.NonNull;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -18,27 +15,43 @@ import static utils.WebDriverUtility.getBrowserLogs;
 @Slf4j
 public class AttachmentListener implements ITestListener, ISuiteListener {
 
-    @SneakyThrows
     @Override
-    public void onTestFailure(ITestResult iTestResult) {
-        WebDriver webDriver = null;
+    public void onTestFailure(ITestResult result) {
+        log.error("Test failed: {}", result.getName(), result.getThrowable());
+
+        WebDriver driver = getWebDriverSafely();
+        if (driver != null) {
+            attachScreenshot(driver);
+            attachConsoleLogs();
+        }
+    }
+
+    @Attachment(value = "Page Screenshot", type = "image/png")
+    private byte[] attachScreenshot(WebDriver driver) {
         try {
-            webDriver = getWebDriver();
-        } catch (IllegalStateException ex) {
-            log.info("Browser wasn't opened!");
-        }
-        if (webDriver != null) {
-            saveScreenshot(webDriver);
-            Allure.addAttachment("Browser console logs", getConsoleLogs());
+            return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+        } catch (Exception e) {
+            log.error("Failed to capture screenshot: {}", e.getMessage());
+            return new byte[0];
         }
     }
 
-    @Attachment(value = "Page screenshot", type = "image/png")
-    private byte[] saveScreenshot(WebDriver driver) {
-        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+    @Attachment(value = "Browser Console Logs", type = "text/plain")
+    private String attachConsoleLogs() {
+        try {
+            return String.join("\n", getBrowserLogs());
+        } catch (Exception e) {
+            log.error("Failed to fetch browser logs: {}", e.getMessage());
+            return "No logs available.";
+        }
     }
 
-    private @NonNull String getConsoleLogs() {
-        return String.valueOf(getBrowserLogs());
+    private WebDriver getWebDriverSafely() {
+        try {
+            return getWebDriver();
+        } catch (IllegalStateException e) {
+            log.warn("WebDriver is not available: {}", e.getMessage());
+            return null;
+        }
     }
 }

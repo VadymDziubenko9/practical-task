@@ -67,9 +67,9 @@ public class HomePage {
     @Step
     public void validateEvents(Map<String, String> resultEvents, Map<String, String> eventsMap, double odd1, double odd2) {
         for (Map.Entry<String, String> entry : eventsMap.entrySet()) {
-            var allMatched = Arrays.stream(entry.getValue().split(","))
-                    .allMatch(odd -> Double.parseDouble(odd) > odd1 && Double.parseDouble(odd) < odd2);
-            if (allMatched) {
+            var anyMatched = Arrays.stream(entry.getValue().split(","))
+                    .anyMatch(odd -> Double.parseDouble(odd) > odd1 && Double.parseDouble(odd) < odd2);
+            if (anyMatched) {
                 resultEvents.put(entry.getKey(), entry.getValue());
             }
         }

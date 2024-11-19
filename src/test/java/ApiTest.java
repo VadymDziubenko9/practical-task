@@ -1,4 +1,4 @@
-import DTO.events.FullEventData;
+import dto.events.FullEventData;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.AfterClass;
@@ -10,12 +10,9 @@ import utils.Specification;
 import java.util.ArrayList;
 import java.util.List;
 
-import static common.JsonValidator.deserializeEvents;
-import static common.JsonValidator.validateJsonSchema;
-
 @Slf4j
 public class ApiTest extends BaseTest {
-    private final static String SPAIN_ID = "336";
+    private static final String SPAIN_ID = "336";
     private final ApiTestSteps apiTestSteps = new ApiTestSteps();
     private List<String> eventsResult = new ArrayList<>();
 
@@ -29,9 +26,7 @@ public class ApiTest extends BaseTest {
     public void validateSpainOdds() {
         var eventsResponse = apiTestSteps.getDivisionEventsResponse(SPAIN_ID);
 
-        validateJsonSchema(eventsResponse);
-
-        var fullEventData = deserializeEvents(eventsResponse);
+        var fullEventData = apiTestSteps.deserializeEvents(eventsResponse);
 
         validateResponseStatus(fullEventData);
 
@@ -39,7 +34,7 @@ public class ApiTest extends BaseTest {
     }
 
     public void validateResponseStatus(FullEventData fullEventData) {
-        Assertions.assertThat(fullEventData.isSuccessfull())
+        Assertions.assertThat(fullEventData.isSuccessful())
                 .as("Check if the response is successful")
                 .isTrue();
     }

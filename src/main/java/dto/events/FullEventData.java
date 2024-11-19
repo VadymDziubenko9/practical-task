@@ -1,4 +1,4 @@
-package DTO.events;
+package dto.events;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,6 +16,6 @@ public class FullEventData {
     private ArrayList<Integer> acid;
     private Object result;
     @JsonProperty("isSuccessfull")
-    private boolean isSuccessfull;
+    private boolean successful;
     private Object userInfo;
 }

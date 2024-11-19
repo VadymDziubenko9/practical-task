@@ -1,8 +1,12 @@
 package steps;
 
-import DTO.events.EventData;
-import DTO.events.FullEventData;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import dto.events.EventData;
+import dto.events.FullEventData;
 import io.qameta.allure.Step;
+import io.restassured.module.jsv.JsonSchemaValidator;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -11,6 +15,7 @@ import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
 
+@Slf4j
 public class ApiTestSteps {
 
     @Step
@@ -34,6 +39,9 @@ public class ApiTestSteps {
                 .when()
                 .get("/evapi/event/GetEvents?" + query)
                 .then().log().all()
+                .assertThat()
+                .statusCode(200)
+                .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schema.json"))
                 .extract().asString();
     }
 
@@ -45,5 +53,15 @@ public class ApiTestSteps {
                         .anyMatch(odds -> Double.parseDouble(odds.getP()) > odd1 && Double.parseDouble(odds.getP()) < odd2))
                 .map(EventData::getA)
                 .toList();
+    }
+
+    @Step
+    public FullEventData deserializeEvents(String eventsResponse) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.readValue(eventsResponse, FullEventData.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -18,7 +18,7 @@ public class JsUtility {
         var webDriver = getWebDriver();
 
         if (null != webDriver) {
-            AwaitUtility.awaitSafe(Duration.ofSeconds(30), Duration.ofSeconds(1),
+            AwaitUtility.waitForCondition(Duration.ofSeconds(30), Duration.ofSeconds(2),
                     () -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"),
                     Matchers.is(true));
         } else
