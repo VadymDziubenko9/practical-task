@@ -1,0 +1,157 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "#EventsResponseSchema.json",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "st": {
+            "type": "number"
+          },
+          "gt": {
+            "type": "string"
+          },
+          "gn": {
+            "type": "string"
+          },
+          "bk": {
+            "type": "boolean"
+          },
+          "et": {
+            "type": "number"
+          },
+          "o": {
+            "type": "number"
+          },
+          "cid": {
+            "type": "number"
+          },
+          "sci": {
+            "type": "number"
+          },
+          "ng": {
+            "type": "boolean"
+          },
+          "sid": {
+            "type": "number"
+          },
+          "sn": {
+            "type": "string"
+          },
+          "co": {
+            "type": "number"
+          },
+          "cn": {
+            "type": "string"
+          },
+          "lid": {
+            "type": "number"
+          },
+          "lo": {
+            "type": "number"
+          },
+          "ln": {
+            "type": "string"
+          },
+          "h": {
+            "type": "string"
+          },
+          "a": {
+            "type": "string"
+          },
+          "btc": {
+            "type": "number"
+          },
+          "bts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "n": {
+                  "type": "string"
+                },
+                "o": {
+                  "type": "number"
+                },
+                "s": {
+                  "type": "number"
+                },
+                "odds": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "n": {
+                        "type": "string"
+                      },
+                      "s": {
+                        "type": "number"
+                      },
+                      "oc": {
+                        "type": "number"
+                      },
+                      "p": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "n",
+                      "s",
+                      "oc",
+                      "p"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "n",
+                "o",
+                "s",
+                "odds"
+              ]
+            }
+          },
+          "hco": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "st",
+          "gt",
+          "gn",
+          "bk",
+          "et",
+          "o",
+          "cid",
+          "sci",
+          "ng",
+          "sid",
+          "sn",
+          "co",
+          "cn",
+          "lid",
+          "lo",
+          "ln",
+          "h",
+          "a",
+          "btc",
+          "bts"
+        ]
+      }
+    }
+  },
+  "required": [
+    "data"
+  ]
+}

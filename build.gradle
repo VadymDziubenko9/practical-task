@@ -55,6 +55,9 @@ dependencies {
     implementation "io.qameta.allure:allure-java-commons:$allureVer"
     implementation 'org.aspectj:aspectjweaver:1.9.7'
     implementation 'org.awaitility:awaitility:4.2.0'
+
+    implementation 'com.networknt:json-schema-validator:1.4.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
 }
 
 tasks.register("apiTest", Test) {

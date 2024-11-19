@@ -9,6 +9,7 @@ TEST*.xml
 Thumbs.db
 
 *.pb
+*.gradle
 *.app
 *.exe
 *.war
