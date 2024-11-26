@@ -62,17 +62,4 @@ public class AwaitUtility {
             return false;
         }
     }
-
-    /**
-     * A simpler version of waitForCondition with default poll interval.
-     *
-     * @param <T>      the type of the result provided by the supplier
-     * @param duration the maximum duration to wait
-     * @param supplier the condition supplier
-     * @param matcher  the matcher to validate the condition
-     * @return true if the condition is met, false otherwise
-     */
-    public static <T> boolean waitForCondition(Duration duration, Callable<T> supplier, Matcher<? super T> matcher) {
-        return waitForCondition(duration, DEFAULT_POLL_INTERVAL, supplier, matcher);
-    }
 }

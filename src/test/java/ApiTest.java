@@ -1,7 +1,6 @@
-import dto.events.FullEventData;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
-import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import steps.ApiTestSteps;
@@ -22,27 +21,23 @@ public class ApiTest extends BaseTest {
                 installSpecification(Specification.requestSpec(BASE_URL), Specification.responseSpecUniqueStatus(200));
     }
 
-    @Test
-    public void validateSpainOdds() {
-        var eventsResponse = apiTestSteps.getDivisionEventsResponse(SPAIN_ID);
+    @Test(groups = "spainLeague")
+    public void getSpainLeagueEventsOdds() {
+        var eventsResponse = apiTestSteps.validateJsonSchema(SPAIN_ID);
 
         var fullEventData = apiTestSteps.deserializeEvents(eventsResponse);
 
-        validateResponseStatus(fullEventData);
-
-        eventsResult = apiTestSteps.getEventsList(fullEventData, ODD1, ODD2);
-    }
-
-    public void validateResponseStatus(FullEventData fullEventData) {
         Assertions.assertThat(fullEventData.isSuccessful())
                 .as("Check if the response is successful")
                 .isTrue();
+
+        eventsResult = apiTestSteps.getEventsWithAllOdds(fullEventData);
     }
 
-    @AfterClass
+    @AfterMethod(groups = "spainLeague")
     public void printEventsSummary() {
         if (!eventsResult.isEmpty()) {
-            log.info("Events with odds between {} and {}", ODD1, ODD2);
+            log.info("Spain events with all odds");
             for (String event : eventsResult) {
                 System.out.println(event);
             }

@@ -7,16 +7,14 @@ import utils.WebDriverUtility;
 @Slf4j
 public class BaseTest {
 
-    protected final static String BASE_URL = "https://s.gsb.co.zm/services";
-    protected final static double ODD1 = 1.5;
-    protected final static double ODD2 = 3.34;
+    protected static final String BASE_URL = "https://s.gsb.co.zm/services";
 
-    @BeforeSuite
+    @BeforeSuite(alwaysRun = true)
     public void setupConfig() {
         WebDriverUtility.initDriver();
     }
 
-    @AfterSuite
+    @AfterSuite(alwaysRun = true)
     public void tearDown() {
         try {
             Selenide.closeWebDriver();
